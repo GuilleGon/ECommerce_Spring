@@ -1,12 +1,14 @@
 package com.informatorio.Ejercicios_complementarios_level_1.Entity;
 
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Usuario implements Serializable {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,7 +17,21 @@ public class Usuario implements Serializable {
     private String nombre;
     private String apellido;
     private String direccion;
+
+    @CreatedDate
     private Date fecha_creacion;
+
+    @OneToOne
+    @JoinColumn(name = "carrito_id")
+    private Carrito carrito;
+
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
 
     public Long getId() {
         return id;

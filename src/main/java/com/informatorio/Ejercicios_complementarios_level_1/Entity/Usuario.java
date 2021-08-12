@@ -1,11 +1,13 @@
 package com.informatorio.Ejercicios_complementarios_level_1.Entity;
 
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -18,20 +20,22 @@ public class Usuario {
     private String apellido;
     private String direccion;
 
-    @CreatedDate
+    @CreationTimestamp
+    @Column(nullable = false)
     private Date fecha_creacion;
 
-    @OneToOne
-    @JoinColumn(name = "carrito_id")
-    private Carrito carrito;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Carrito> carrito;
 
-    public Carrito getCarrito() {
+
+    public List<Carrito> getCarrito() {
         return carrito;
     }
 
-    public void setCarrito(Carrito carrito) {
+    public void setCarrito(List<Carrito> carrito) {
         this.carrito = carrito;
     }
+
 
     public Long getId() {
         return id;

@@ -17,14 +17,13 @@ public class Carrito {
     private Date fecha_creacion;
     private boolean estado;
 
-    @OneToOne(mappedBy = "carrito")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Usuario usuario;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "Carrito_Producto",
             joinColumns = @JoinColumn(name = "producto_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "carrito_id", referencedColumnName = "id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "carrito_id", referencedColumnName = "id"))
     private List<Carrito> producto;
 
 
